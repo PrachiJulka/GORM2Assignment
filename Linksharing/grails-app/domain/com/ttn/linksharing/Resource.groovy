@@ -12,20 +12,21 @@ abstract class Resource {
         description(type: 'text')
     }
     /*
-    -Create named query 'search' which takes ResourceSearchCO
-     as argument and find resources specific to topic id.
-     List<Account> accounts =
-      Account.search(co).list(max:co.max,order:co.order,sort:co.sort,offset:co.offset)
+    -Updated Resource search named query and add condition
+    to search topic with specified visibility
      */
     static namedQueries = {
         search {
-            ResourceSearchCO resourceSearchCO ->
-                eq 'topic.id', resourceSearchCO.topicId
-
+             ResourceSearchCO resourceSearchCO ->
+            if(resourceSearchCO.topicId)
+                    eq('topic.id', resourceSearchCO.topicId)
+            if(resourceSearchCO.visibility)
+                eq('topic.visibility',resourceSearchCO.visibility)
 
         }
+     }
     }
-}
+
 
 
 

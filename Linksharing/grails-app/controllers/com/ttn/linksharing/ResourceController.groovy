@@ -2,7 +2,12 @@ package com.ttn.linksharing
 
 import org.hibernate.ObjectNotFoundException
 
-//Exception of object not found should be handled in resource delete.
+/*
+-Add search action in a resource controller,
+ which will search if q parameter is set and it will set visibility of
+ resourcesearchco to public-Add search action in a resource controller, which will search
+if q parameter is set and it will set visibility of resourcesearchco to public
+*/
 class ResourceController {
 
     def index() { }
@@ -16,5 +21,10 @@ class ResourceController {
     def handleObjectNotFoundException(ObjectNotFoundException e) {
 
         render ("no object found")
+    }
+    def search(){
+        ResourceSearchCO resourceSearchCO=new ResourceSearchCO()
+        if(resourceSearchCO.q)
+            resourceSearchCO.visibility=Visibility.PUBLIC
     }
 }

@@ -18,7 +18,7 @@ class BootStrap {
         question27()
         createResourceRating()
        q1()
-        ResourceSearchCO resourceSearchCO=new ResourceSearchCO(topicId: 2)
+        ResourceSearchCO resourceSearchCO=new ResourceSearchCO(visibility: Visibility.PUBLIC)
         log.info("-----------------------------------------")
        def str= Resource.search(resourceSearchCO).list()
         println(str)
