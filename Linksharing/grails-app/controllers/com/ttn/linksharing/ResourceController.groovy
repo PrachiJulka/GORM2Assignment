@@ -3,10 +3,7 @@ package com.ttn.linksharing
 import org.hibernate.ObjectNotFoundException
 
 /*
--Add search action in a resource controller,
- which will search if q parameter is set and it will set visibility of
- resourcesearchco to public-Add search action in a resource controller, which will search
-if q parameter is set and it will set visibility of resourcesearchco to public
+-Call this method from resource show action
 */
 class ResourceController {
 
@@ -26,5 +23,10 @@ class ResourceController {
         ResourceSearchCO resourceSearchCO=new ResourceSearchCO()
         if(resourceSearchCO.q)
             resourceSearchCO.visibility=Visibility.PUBLIC
+    }
+    def show(Integer id){
+        Resource resource=Resource.get(id)
+        RatingInfoVO ratingInfoVO= resource.setRatingInfo(resource)
+        render(ratingInfoVO)
     }
 }

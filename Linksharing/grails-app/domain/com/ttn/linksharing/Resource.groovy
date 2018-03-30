@@ -1,7 +1,9 @@
 package com.ttn.linksharing
 
-//-Create named query 'search' which takes
-// ResourceSearchCO as argument and find resources specific to topic id.
+/*
+Create method in resource to get rating
+details like totalvotes, avgscore, totalscore of a resource
+*/
 abstract class Resource {
     String description
     Date dateCreated
@@ -11,6 +13,9 @@ abstract class Resource {
     static constraints = {
         description(type: 'text')
     }
+     RatingInfoVO ratingInfoVO
+
+    static transients = ['ratingInfoVO']
     /*
     -Updated Resource search named query and add condition
     to search topic with specified visibility
@@ -25,7 +30,61 @@ abstract class Resource {
 
         }
      }
+
+    Integer totalVotes(Resource resource) {
+        Integer votes = ResourceRating.createCriteria().count() {
+
+            eq("resource", resource)
+        }
+
+        return votes
     }
+
+    def avgScore(Resource resource){
+        def average= ResourceRating.createCriteria().get {
+            projections {
+                avg('score')
+            }
+            eq("resource",resource)
+        }
+
+        return average
+
+    }
+    def totalScore(Resource resource){
+        def sum1 = ResourceRating.createCriteria().get(){
+
+            projections {
+                sum('score')
+            }
+            eq("resource",resource)
+        }
+
+        return sum1
+    }
+/*
+    AccountInfoVO getAccountInfo() {
+        List result = Account.createCriteria().get {
+            projections {
+                count('id', 'accountCount')
+                sum('balance')
+                avg('balance')
+            }
+            eq('user', this)
+            order('accountCount', 'desc')
+        }
+
+        new AccountInfoVO(totalAccounts: result[0], totalBalance: result[1], averageBalance: result[2])
+    }*/
+    RatingInfoVO setRatingInfo(Resource resource){
+        RatingInfoVO ratingInfoVO1=new RatingInfoVO()
+        ratingInfoVO1.averagescore=avgScore(resource)
+        ratingInfoVO1.totalScore=totalScore(resource)
+        ratingInfoVO1.totalVotes=totalVotes(resource)
+        return ratingInfoVO1
+    }
+
+}
 
 
 

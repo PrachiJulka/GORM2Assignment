@@ -20,8 +20,12 @@ class BootStrap {
        q1()
         ResourceSearchCO resourceSearchCO=new ResourceSearchCO(visibility: Visibility.PUBLIC)
         log.info("-----------------------------------------")
-       def str= Resource.search(resourceSearchCO).list()
-        println(str)
+//       def str= Resource.search(resourceSearchCO).list()
+//        println(str)
+        Resource resource=Resource.get(5)
+        println resource.totalVotes(resource)
+        println resource.avgScore(resource)
+        println resource.totalScore(resource)
     }
     void createUsers(){
 
