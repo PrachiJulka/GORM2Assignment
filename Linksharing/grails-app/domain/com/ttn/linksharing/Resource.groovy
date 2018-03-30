@@ -62,21 +62,8 @@ abstract class Resource {
 
         return sum1
     }
-/*
-    AccountInfoVO getAccountInfo() {
-        List result = Account.createCriteria().get {
-            projections {
-                count('id', 'accountCount')
-                sum('balance')
-                avg('balance')
-            }
-            eq('user', this)
-            order('accountCount', 'desc')
-        }
 
-        new AccountInfoVO(totalAccounts: result[0], totalBalance: result[1], averageBalance: result[2])
-    }*/
-    RatingInfoVO setRatingInfo(Resource resource){
+    RatingInfoVO getRatingInfoVo(Resource resource){
         RatingInfoVO ratingInfoVO1=new RatingInfoVO()
         ratingInfoVO1.averagescore=avgScore(resource)
         ratingInfoVO1.totalScore=totalScore(resource)

@@ -26,7 +26,11 @@ class ResourceController {
     }
     def show(Integer id){
         Resource resource=Resource.get(id)
-        RatingInfoVO ratingInfoVO= resource.setRatingInfo(resource)
-        render(ratingInfoVO)
+        RatingInfoVO ratingInfoVO= resource.getRatingInfoVo(resource)
+        render(ratingInfoVO.averagescore)
+    }
+    def handleNullPointerException(NullPointerException e) {
+
+        render ("null found")
     }
 }
