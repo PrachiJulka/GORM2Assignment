@@ -1,8 +1,13 @@
 package com.ttn.linksharing
 
 /*
-Create method in resource to get rating
-details like totalvotes, avgscore, totalscore of a resource
+Add top post when user is not logged in
+
+    - Resource with maximum number of votes will be top post
+    -Only 5 posts should be shown in order of maximum vote count
+    -Use groupProperty with id of resource otherwise lots of queries will be fired
+    -Collect Resource list with resource id using getall rather then finder otherwise ordering will not be maintained
+
 */
 abstract class Resource {
     String description
@@ -69,6 +74,34 @@ abstract class Resource {
         ratingInfoVO1.totalScore=totalScore(resource)
         ratingInfoVO1.totalVotes=totalVotes(resource)
         return ratingInfoVO1
+    }
+
+/*
+    Add top post when user is not logged in
+
+    - Resource with maximum number of votes will be top post
+    -Only 5 posts should be shown in order of maximum vote count
+    -Use groupProperty with id of resource otherwise lots of queries will be fired
+    -Collect Resource list with resource id using getall rather then finder otherwise ordering will not be maintained
+*/
+
+    List<Resource> topPost(){
+
+        List resourceIds = ResourceRating.createCriteria().list {
+            projections {
+                property('resource.id')
+            }
+            groupProperty('resource.id')
+            count('resource.id', 'resourceCount')
+            order('resourceCount', 'desc')
+            maxResults(5)
+        }
+
+        List<Resource> resources = Resource.getAll(resourceIds)
+        return resources
+
+
+
     }
 
 }

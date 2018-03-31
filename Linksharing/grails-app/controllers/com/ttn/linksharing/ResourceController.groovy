@@ -27,9 +27,11 @@ class ResourceController {
     def show(Integer id){
         Resource resource=Resource.get(id)
         RatingInfoVO ratingInfoVO= resource.getRatingInfoVo(resource)
+        println ("------------ ${resource.topPost()}")
+
         render(ratingInfoVO.averagescore)
-        println Topic.getTrendingTopics()
-    }
+       // println Topic.getTrendingTopics()
+        }
     def handleNullPointerException(NullPointerException e) {
 
         render ("null found")

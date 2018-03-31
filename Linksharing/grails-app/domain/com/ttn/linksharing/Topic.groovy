@@ -70,8 +70,8 @@ class Topic {
 
         List topicVOList = []
         topicList.each {
-
-                topicVOList.add(new TopicVO(id: it[0], name: it[1], visibility: it[2], count: it[3], createdBy: it[4]))
+            topicVOList.add(new TopicVO(id: it[0],
+                    name: it[1], visibility: it[2], count: it[3], createdBy: it[4]))
 
 
         }
@@ -79,11 +79,7 @@ class Topic {
 
 
 
-    }  /*Integer id
-    String name
-    Visibility visibility
-    Integer count
-    User Created*/
+    }
 
 
     @Override
