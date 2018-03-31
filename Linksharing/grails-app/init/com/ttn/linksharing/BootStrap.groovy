@@ -17,15 +17,23 @@ class BootStrap {
         createReadingItems()
         question27()
         createResourceRating()
-       q1()
-        ResourceSearchCO resourceSearchCO=new ResourceSearchCO(visibility: Visibility.PUBLIC)
+        q1()
+        ResourceSearchCO resourceSearchCO = new ResourceSearchCO(visibility: Visibility.PUBLIC)
         log.info("-----------------------------------------")
 //       def str= Resource.search(resourceSearchCO).list()
 //        println(str)
-        Resource resource=Resource.get(5)
+        Resource resource = Resource.get(5)
         println resource.totalVotes(resource)
         println resource.avgScore(resource)
         println resource.totalScore(resource)
+        List topics = Topic.getTrendingTopics()
+        topics.each {
+            println it.id
+            println it.visibility
+            println it.name
+            println it.createdBy
+            println it.count
+        }
     }
     void createUsers(){
 
