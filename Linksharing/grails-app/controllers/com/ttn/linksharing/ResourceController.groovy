@@ -28,6 +28,7 @@ class ResourceController {
         Resource resource=Resource.get(id)
         RatingInfoVO ratingInfoVO= resource.getRatingInfoVo(resource)
         render(ratingInfoVO.averagescore)
+        println Topic.getTrendingTopics()
     }
     def handleNullPointerException(NullPointerException e) {
 

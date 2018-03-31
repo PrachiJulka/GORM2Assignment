@@ -33,6 +33,25 @@ class Topic {
     }
 
 
+/*
+    List<User> users = User.createCriteria().list() {
+        ilike("firstName", "${q}%")
+        ilike("address", "%${q}")
+        le("age", age)
+    }
+    return users
+*/
+
+
+    static List<Topic> getTrendingTopics(){
+        List<Topic> topics = Topic.createCriteria().list() {
+            projections {
+                max('resources')
+            }
+            eq('visibility',Visibility.PUBLIC)
+        }
+        return topics
+    }
     @Override
     public String toString() {
         return "Topic{" +
