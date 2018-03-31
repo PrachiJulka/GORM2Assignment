@@ -4,8 +4,11 @@ Use read() for /topic/show and load() for /resource/delete & /topic/delete actio
 */
 class UserController {
 
-    def index() {
+    def index(SearchCO searchCO) {
+
         render(session.user.userName)
+
+       render session.user.getUnreadResource(searchCO)
     }
 
     def show(Integer id){

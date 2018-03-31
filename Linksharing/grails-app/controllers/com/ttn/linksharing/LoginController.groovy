@@ -10,6 +10,7 @@ class LoginController {
 
     def index() {
 
+
       }
 
     def logout() {
